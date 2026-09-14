@@ -1,0 +1,5 @@
+config.toml
+*.gpg
+logs/
+__pycache__/
+*.pyc

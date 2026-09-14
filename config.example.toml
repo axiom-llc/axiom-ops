@@ -1,0 +1,18 @@
+[git_sync]
+repo_directory = "~/projects/my-repo"
+log_file = "~/logs/git-sync.log"
+git_email = "automation@example.com"
+git_name = "Automation Bot"
+commit_message = "Automated sync"
+force_with_lease = true
+
+[backup]
+source_dir = "~/projects/my-repo"
+backup_dir = "~/backups"
+log_file = "~/logs/backup.log"
+gpg_recipient = "automation@example.com"
+retention_days = 7
+
+[monitoring]
+log_dir = "~/logs"
+alert_patterns = ["ERROR", "CRITICAL", "FATAL", "UNAUTHORIZED"]
