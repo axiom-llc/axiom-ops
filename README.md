@@ -2,11 +2,12 @@
 
 Minimal deterministic operations tooling for Linux systems.
 
-`axiom-ops` provides three auditable utilities:
+`axiom-ops` provides four auditable utilities:
 
 - encrypted directory backups with bounded retention;
 - local-source-of-truth Git synchronization;
-- incremental pattern-based log monitoring.
+- incremental pattern-based log monitoring;
+- deterministic Markdown-to-HTML conversion.
 
 The tools use explicit TOML configuration and avoid a resident service or framework.
 
@@ -18,6 +19,7 @@ The tools use explicit TOML configuration and avoid a resident service or framew
 - `tar`
 - GnuPG
 - Git
+- Python-Markdown 3.8+ only for `md2html.py` (`requirements-md2html.txt`)
 
 ## Configure
 
@@ -44,6 +46,12 @@ The backup is streamed through GnuPG and written atomically as `backup_*.tar.gz.
 Run `./log-monitor.sh config.toml`.
 
 The monitor reads bytes appended since the previous invocation and stores per-file offsets under `~/.cache/axiom-ops/log-monitor/`. Configured alert patterns are matched literally. File truncation resets monitoring to byte zero.
+
+## Markdown to HTML
+
+Install the narrowly scoped converter dependency with `python -m pip install -r requirements-md2html.txt`, then run `./md2html.py input.md` or `./md2html.py input.md -o output.html`. The converter embeds its CSS, supports fenced code, tables, `[TOC]`, and line-break conversion, and writes the output atomically.
+
+Markdown input is treated as trusted authoring content. Python-Markdown preserves raw HTML, so this utility is **not an HTML sanitization or untrusted-content security boundary**. Do not serve converted untrusted Markdown without a separate sanitizer appropriate to that trust model.
 
 ## Validation
 
